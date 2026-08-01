@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mission Célia ❤️</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+
+body{
+
+    height:100vh;
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(
+        -45deg,
+        #0f172a,
+        #1e293b,
+        #334155,
+        #2563eb
+    );
+
+    background-size:400% 400%;
+
+    animation:backgroundMove 12s infinite;
+
+    color:white;
+
+}
+
+
+
+@keyframes backgroundMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+
+
+#hearts{
+
+    position:fixed;
+    width:100%;
+    height:100%;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+}
+
+
+
+.heart{
+
+    position:absolute;
+
+    bottom:-50px;
+
+    color:#ff7eb9;
+
+    animation:heartMove linear forwards;
+
+}
+
+
+
+@keyframes heartMove{
+
+    0%{
+
+        transform:translateY(0);
+        opacity:0;
+
+    }
+
+
+    20%{
+
+        opacity:0.5;
+
+    }
+
+
+    100%{
+
+        transform:translateY(-110vh);
+
+        opacity:0;
+
+    }
+
+}
+
+
+
+.container{
+
+    width:90%;
+
+    max-width:700px;
+
+    z-index:5;
+
+}
+
+
+
+.page{
+
+    display:none;
+
+    background:rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(12px);
+
+    padding:35px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:0 0 30px rgba(0,0,0,.3);
+
+    animation:appear .5s;
+
+}
+
+
+
+.page.active{
+
+    display:block;
+
+}
+
+
+
+@keyframes appear{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+h1{
+
+    margin-bottom:20px;
+
+}
+
+
+
+p{
+
+    line-height:1.7;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.progress{
+
+    height:10px;
+
+    background:rgba(255,255,255,.2);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.progress div{
+
+    height:100%;
+
+    background:white;
+
+    transition:.5s;
+
+}
+
+
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    margin:10px 0;
+
+    border:0;
+
+    border-radius:15px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+
+
+button:hover{
+
+    transform:scale(1.03);
+
+}
+
+
+
+.answer{
+
+    background:white;
+
+    color:#1e293b;
+
+}
+
+
+
+.next{
+
+    background:#38bdf8;
+
+    color:white;
+
+}
+
+
+
+.secret{
+
+    background:#f59e0b;
+
+    color:white;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<audio id="music" loop>
+
+<source src="911.mp3" type="audio/mpeg">
+
+</audio>
+
+
+<div id="hearts"></div>
+
+
+<div class="container">
+
+
+
+<!-- ACCUEIL -->
+
+<div class="page active" id="home">
+
+
+<div class="progress">
+
+<div style="width:0%"></div>
+
+</div>
+
+
+
+<h1>Mission Célia ❤️</h1>
+
+
+<p>
+
+Bienvenue dans cette petite mission.
+
+<br><br>
+
+Des souvenirs ont été cachés.
+
+Ton objectif est de retrouver les bonnes archives.
+
+<br><br>
+
+Attention...
+
+Les mauvaises réponses ne détruisent pas la mission,
+
+mais elles te donneront un indice.
+
+</p>
+
+
+
+<button class="next" onclick="startGame()">
+
+Commencer
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<!-- QUESTION 1 -->
+
+
+<div class="page" id="question1">
+
+
+<div class="progress">
+
+<div style="width:25%"></div>
+
+</div>
+
+
+<h1>Niveau 1</h1>
+
+
+<p>
+
+Quand tu repenses au lycée,
+
+qu'est-ce qui revient en premier ?
+
+</p>
+
+
+
+<button class="answer"
+onclick="wrongAnswer('Les cours font partie des souvenirs, mais ce n’est pas celui recherché.')">
+
+Les cours
+
+</button>
+
+
+
+<button class="answer"
+onclick="wrongAnswer('Les amis ont compté, mais le système cherche quelque chose de plus personnel.')">
+
+Les amis
+
+</button>
+
+
+
+<button class="answer"
+onclick="nextPage('memory1')">
+
+Certains souvenirs particuliers
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<!-- REPONSE 1 -->
+
+
+<div class="page" id="memory1">
+
+
+<h1>Archive retrouvée 🔓</h1>
+
+
+<p>
+
+Le système a retrouvé un souvenir.
+
+<br><br>
+
+Ce ne sont pas les cours.
+
+Ce ne sont pas les devoirs.
+
+<br><br>
+
+Mais certains regards...
+
+ceux qui arrivaient à changer une journée entière.
+
+</p>
+
+
+
+<button class="next"
+onclick="nextPage('question2')">
+
+Continuer
+
+</button>
+
+
+</div>
+
+<!-- QUESTION 2 -->
+
+<div class="page" id="question2">
+
+
+<div class="progress">
+
+<div style="width:50%"></div>
+
+</div>
+
+
+<h1>Niveau 2</h1>
+
+
+<p>
+
+Si tu pouvais retourner à un moment précis,
+
+lequel choisirais-tu ?
+
+</p>
+
+
+
+<button class="answer"
+onclick="wrongAnswer('Une journée normale peut cacher de beaux souvenirs, mais ce n’est pas l’archive recherchée.')">
+
+Une journée normale
+
+</button>
+
+
+
+<button class="answer"
+onclick="wrongAnswer('Le système détecte un souvenir amusant... mais il manque quelque chose.')">
+
+Un fou rire oublié
+
+</button>
+
+
+
+<button class="answer"
+onclick="nextPage('memory2')">
+
+Un moment au lycée
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- REPONSE 2 -->
+
+
+<div class="page" id="memory2">
+
+
+<h1>Souvenir retrouvé 🔓</h1>
+
+
+<p>
+
+Le lycée apparaît dans les archives.
+
+<br><br>
+
+Certains endroits deviennent importants
+
+uniquement grâce aux personnes avec qui on les partage.
+
+<br><br>
+
+Le système continue l'enquête...
+
+</p>
+
+
+
+<button class="next"
+onclick="nextPage('question3')">
+
+Continuer
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- QUESTION 3 -->
+
+
+<div class="page" id="question3">
+
+
+<div class="progress">
+
+<div style="width:75%"></div>
+
+</div>
+
+
+<h1>Niveau 3</h1>
+
+
+<p>
+
+Objet indispensable
+
+pour rendre une mauvaise journée meilleure ?
+
+</p>
+
+
+
+<button class="answer"
+onclick="wrongAnswer('Réponse pratique, mais le système cherche quelque chose de plus affectif.')">
+
+Le téléphone
+
+</button>
+
+
+
+<button class="answer"
+onclick="wrongAnswer('Le chocolat est une bonne solution... mais ce n’est pas l’objet légendaire.')">
+
+Le chocolat
+
+</button>
+
+
+
+<button class="answer"
+onclick="nextPage('memory3')">
+
+Doudou
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- REPONSE 3 -->
+
+
+<div class="page" id="memory3">
+
+
+<h1>Objet légendaire trouvé 🔓</h1>
+
+
+<p>
+
+Analyse terminée.
+
+<br><br>
+
+Objet détecté :
+
+<b>Doudou</b>
+
+<br><br>
+
+Classement :
+
+Objet de grande valeur sentimentale.
+
+<br><br>
+
+Le système confirme :
+
+Doudou mérite son statut spécial.
+
+</p>
+
+
+
+<button class="next"
+onclick="nextPage('final')">
+
+Voir la fin
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- FIN NORMALE -->
+
+
+<div class="page" id="final">
+
+
+<div class="progress">
+
+<div style="width:100%"></div>
+
+</div>
+
+
+<h1>Mission terminée 🎉</h1>
+
+
+<p>
+
+Bravo Célia.
+
+<br><br>
+
+Tu as retrouvé toutes les archives.
+
+<br><br>
+
+Entre le lycée,
+
+certains regards,
+
+des souvenirs,
+
+et même Doudou...
+
+la mission est réussie.
+
+</p>
+
+
+
+<button class="secret"
+onclick="secretEnding()">
+
+Débloquer la fin secrète
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- PAGE MAUVAISE REPONSE -->
+
+
+<div class="page" id="wrong">
+
+
+<h1>Archive incorrecte</h1>
+
+
+<p id="wrongMessage">
+
+</p>
+
+
+
+<button class="next"
+onclick="returnQuestion()">
+
+Continuer
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- FIN SECRETE -->
+
+
+<div class="page" id="secret">
+
+
+<h1>Fin secrète ❤️</h1>
+
+
+<p id="secretText">
+
+</p>
+
+
+</div>
+
+<script>
+
+
+let lastQuestion = "";
+
+let musicStarted = false;
+
+
+
+// Démarrer le jeu
+
+function startGame(){
+
+
+    if(!musicStarted){
+
+
+        let music = document.getElementById("music");
+
+
+        music.volume = 0.4;
+
+
+        music.play().catch(()=>{});
+
+
+        musicStarted = true;
+
+
+    }
+
+
+    nextPage("question1");
+
+
+}
+
+
+
+
+// Changer de page
+
+function nextPage(page){
+
+
+    document.querySelectorAll(".page").forEach(p=>{
+
+
+        p.classList.remove("active");
+
+
+    });
+
+
+    document.getElementById(page).classList.add("active");
+
+
+}
+
+
+
+
+// Mauvaise réponse
+
+function wrongAnswer(message){
+
+
+    lastQuestion = document.querySelector(".page.active").id;
+
+
+    document.querySelectorAll(".page").forEach(p=>{
+
+
+        p.classList.remove("active");
+
+
+    });
+
+
+
+    document.getElementById("wrongMessage").innerHTML =
+
+    message +
+
+    "<br><br>" +
+
+    "<b>Indice :</b><br>" +
+
+    "Cherche quelque chose qui représente un vrai souvenir.";
+
+
+
+    document.getElementById("wrong").classList.add("active");
+
+
+}
+
+
+
+
+// Retour à la question précédente
+
+function returnQuestion(){
+
+
+    document.getElementById("wrong").classList.remove("active");
+
+
+    document.getElementById(lastQuestion).classList.add("active");
+
+
+}
+
+
+
+
+// Fin secrète avec effet écriture
+
+function secretEnding(){
+
+
+    nextPage("secret");
+
+
+
+    let text =
+
+    "Célia... " +
+
+    "Si tu es arrivée jusqu'ici, " +
+
+    "c'est que tu as retrouvé tous les souvenirs cachés." +
+
+    "Entre le lycée, certains regards, " +
+
+    "quelques moments, et même Doudou..." +
+
+    "il restait une dernière chose à découvrir." +
+
+    "Je pense encore à toi." +
+
+    "Et si ce jeu t'a fait sourire, " +
+
+    "alors ça m'a fait plaisir aussi." +
+
+    "Merci d'être allée jusqu'au bout.";
+
+
+
+    let i = 0;
+
+
+    let box = document.getElementById("secretText");
+
+
+    box.innerHTML = "";
+
+
+
+    function writeText(){
+
+
+        if(i < text.length){
+
+
+            box.innerHTML += text.charAt(i);
+
+
+            i++;
+
+
+            setTimeout(writeText,40);
+
+
+        }
+
+
+    }
+
+
+
+    writeText();
+
+
+}
+
+
+
+
+
+// Coeurs animés
+
+function createHeart(){
+
+
+
+    let heart = document.createElement("div");
+
+
+    heart.className="heart";
+
+
+    heart.innerHTML="❤";
+
+
+    heart.style.left =
+    Math.random()*100+"%";
+
+
+    heart.style.fontSize =
+    (Math.random()*25+10)+"px";
+
+
+    heart.style.animationDuration =
+    (Math.random()*8+5)+"s";
+
+
+
+    document.getElementById("hearts").appendChild(heart);
+
+
+
+    setTimeout(()=>{
+
+
+        heart.remove();
+
+
+    },13000);
+
+
+
+}
+
+
+
+setInterval(createHeart,700);
+
+
+
+// Quelques coeurs au lancement
+
+for(let i=0;i<15;i++){
+
+
+    setTimeout(()=>{
+
+
+        createHeart();
+
+
+    },i*300);
+
+
+}
+
+
+
+
+// Autoriser la musique au premier clic
+
+document.addEventListener("click",()=>{
+
+
+    let music=document.getElementById("music");
+
+
+    if(music && music.paused){
+
+
+        music.play().catch(()=>{});
+
+
+    }
+
+
+},{once:true});
+
+
+
+</script>
+
+
+</body>
+
+</html>
